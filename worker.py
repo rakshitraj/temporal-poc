@@ -5,6 +5,7 @@ from temporalio.worker import Worker
 
 from workflows.hello_workflow import HelloWorkflow
 from activities.hello_activity import say_hello
+from activities.goodbye_activity import say_goodbye
 
 
 async def main() -> None:
@@ -15,7 +16,7 @@ async def main() -> None:
         client,
         task_queue="default-task-queue",
         workflows=[HelloWorkflow],
-        activities=[say_hello]
+        activities=[say_hello, say_goodbye]
     )
 
     print("Worker started")

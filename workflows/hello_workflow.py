@@ -3,6 +3,8 @@ from temporalio import workflow
 
 with workflow.unsafe.imports_passed_through():
     from activities.hello_activity import say_hello
+    from activities.goodbye_activity import say_goodbye
+
 
 @workflow.defn
 class HelloWorkflow:
@@ -17,4 +19,11 @@ class HelloWorkflow:
             schedule_to_close_timeout=timedelta(seconds=10)
         )
 
-        return result
+        farewell = await workflow.execute_activity(
+            say_goodbye,
+            name,
+            start_to_close_timeout=timedelta(seconds=10),
+            schedule_to_close_timeout=timedelta(seconds=10)
+        )
+
+        return f"{result} | {farewell}"

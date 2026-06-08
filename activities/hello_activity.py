@@ -6,6 +6,6 @@ from temporalio import activity
 async def say_hello(name:str) -> str:
     activity.logger.info(f"Saying hello to {name}!")
 
-    # await asyncio.sleep(5)
+    # await asyncio.sleep(10)
 
     return f"Hello {name}!"
