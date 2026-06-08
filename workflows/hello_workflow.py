@@ -13,7 +13,8 @@ class HelloWorkflow:
         result = await workflow.execute_activity(
             say_hello,
             name,
-            start_to_close_timeout=timedelta(seconds=10)
+            start_to_close_timeout=timedelta(seconds=10),
+            schedule_to_close_timeout=timedelta(seconds=10)
         )
 
         return result
