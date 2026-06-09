@@ -5,6 +5,8 @@ from temporalio.common import WorkflowIDReusePolicy
 
 from workflows.hello_workflow import HelloWorkflow
 from workflows.farewell_workflow import FarewellWorkflow
+from workflows.flaky_workflow import FlakyWorkflow
+
 
 async def main():
 
@@ -29,6 +31,16 @@ async def main():
 
     print(hello_result)
     print(farewell_result)
+
+    flaky = await client.execute_workflow(
+        FlakyWorkflow.run,
+        "Rakshit",
+        id="flaky-worflow",
+        task_queue="default-task-queue",
+        id_reuse_policy=WorkflowIDReusePolicy.TERMINATE_IF_RUNNING
+    )
+
+    print(flaky)
 
 if __name__ == "__main__":
     asyncio.run(main())
